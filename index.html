@@ -224,6 +224,7 @@
 
 
 
+
 <script>
   const UPI_ID = "panchrathnagems@icici";
 
@@ -232,33 +233,26 @@
     const rawAmount = field.value.trim();
     const amount = Number(rawAmount);
 
-    if (
-      rawAmount === "" ||
-      !Number.isFinite(amount) ||
-      amount < 1 ||
-      amount > 1000000
-    ) {
+    if (!rawAmount || !Number.isFinite(amount) ||
+        amount < 1 || amount > 1000000) {
       alert("Please enter a valid amount.");
       field.focus();
       return;
     }
 
-    // Create a unique reference for this payment attempt
-    const reference = "PG" + Date.now().toString();
+    const params = new URLSearchParams({
+      pa: UPI_ID,
+      pn: "PANCHRATHNA GEMS",
+      mc: "0000",
+      cu: "INR",
+      am: amount.toFixed(2),
+      tn: "Customer Payment"
+    });
 
-    const params = new URLSearchParams();
-    params.set("pa", UPI_ID);
-    params.set("pn", "Panchrathna Gems");
-    params.set("tr", reference);
-    params.set("tn", "Payment " + reference);
-    params.set("am", amount.toFixed(2));
-    params.set("cu", "INR");
-
-    const paymentUrl = "upi://pay?" + params.toString();
-
-    window.location.href = paymentUrl;
+    window.location.href = "upi://pay?" + params.toString();
   });
 </script>
+
 
 </body>
 </html>
