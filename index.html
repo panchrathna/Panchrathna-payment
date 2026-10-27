@@ -4,99 +4,191 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Panchrathna Gems - UPI Payment</title>
+  <meta name="theme-color" content="#c42e2a">
+  <title>Panchrathna Gems | UPI Payment</title>
+
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       padding: 24px 16px;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
-      background: #f7f4ed;
-      color: #30251a;
+      background: #fff;
+      color: #282828;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
+
     .card {
-      max-width: 420px;
-      margin: 35px auto;
-      padding: 28px 22px;
-      background: white;
-      border-radius: 18px;
+      width: 100%;
+      max-width: 440px;
+      padding: 30px 24px;
+      background: #fff;
+      border: 1px solid #f2d8d6;
+      border-radius: 22px;
       text-align: center;
-      box-shadow: 0 5px 24px #00000012;
+      box-shadow: 0 8px 30px rgba(196, 46, 42, 0.10);
     }
-    .logo { font-size: 42px; }
-    h1 { font-size: 25px; margin-bottom: 8px; }
-    .sub { color: #766b60; font-size: 14px; }
-    label {
+
+    .brand-logo {
       display: block;
-      text-align: left;
-      margin: 26px 0 8px;
+      width: 112px;
+      height: 112px;
+      object-fit: contain;
+      margin: 0 auto 12px;
+    }
+
+    h1 {
+      margin: 8px 0;
+      color: #b92d28;
+      font-family: Georgia, serif;
+      font-size: 28px;
+    }
+
+    .brand-sub {
+      margin: 0 0 24px;
+      color: #b92d28;
+      font-size: 13px;
+      letter-spacing: 5px;
       font-weight: bold;
     }
+
+    .heading {
+      color: #b92d28;
+      font-size: 21px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .description {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .payment-box {
+      padding: 20px;
+      border: 1px solid #f3d5d3;
+      border-radius: 16px;
+      background: #fffdfd;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
     input {
+      display: block;
       width: 100%;
       padding: 15px;
-      font-size: 22px;
-      border: 1px solid #d7c8ad;
+      font-size: 20px;
+      border: 1.5px solid #c42e2a;
       border-radius: 10px;
+      outline-color: #c42e2a;
+      background: #fff;
     }
+
     button {
       width: 100%;
-      padding: 15px;
+      padding: 16px;
       margin-top: 18px;
-      border: 0;
-      border-radius: 10px;
-      background: #806126;
+      border: none;
+      border-radius: 11px;
+      background: #c42e2a;
       color: white;
-      font-size: 17px;
+      font-size: 18px;
       font-weight: bold;
       cursor: pointer;
     }
+
+    button:active {
+      background: #a82320;
+    }
+
     .note {
-      margin-top: 20px;
-      color: #766b60;
+      margin: 18px 0 0;
+      padding: 13px;
+      border-radius: 10px;
+      background: #fff1f0;
+      color: #6b5555;
       font-size: 12px;
       line-height: 1.6;
+      text-align: left;
+    }
+
+    footer {
+      margin-top: 22px;
+      color: #999;
+      font-size: 11px;
     }
   </style>
 </head>
+
 <body>
   <main class="card">
-    <div class="logo">💎</div>
-    <h1>Panchrathna Gems</h1>
-    <p class="sub">Secure UPI Payment</p>
 
-    <label for="amount">Enter Amount (₹)</label>
-    <input id="amount" type="number"
-           min="1" max="1000000" step="0.01"
-           placeholder="Enter amount">
+    <img
+      class="brand-logo"
+      src="logo.jpg"
+      alt="Panchrathna Gems Logo"
+    >
 
-    <button onclick="payNow()">Pay Now</button>
+    <h1>Panchrathna</h1>
+    <p class="brand-sub">GEMS</p>
 
-    <p class="note">
-      You will be redirected to a UPI app to complete
-      your payment. Please verify the recipient name
-      before paying.
-    </p>
+    <div class="heading">Secure UPI Payment</div>
+    <div class="description">
+      Make your payment easily and securely
+    </div>
+
+    <section class="payment-box">
+      <label for="amount">Enter Amount (₹)</label>
+
+      <input
+        id="amount"
+        type="number"
+        min="1"
+        max="1000000"
+        step="0.01"
+        placeholder="e.g. 1000"
+        inputmode="decimal"
+      >
+
+      <button type="button" onclick="payNow()">
+        Pay Now
+      </button>
+
+      <p class="note">
+        You will be redirected to a UPI app to complete
+        your payment. Please verify the recipient name
+        and UPI ID before approving the payment.
+      </p>
+    </section>
+
+    <footer>
+      Panchrathna Gems · UPI Payment
+    </footer>
   </main>
 
   <script>
-    // Replace this with your exact, verified ICICI UPI ID.
     const UPI_ID = "panchrathnagems@icici";
 
     function payNow() {
-      const amount = Number(
-        document.getElementById("amount").value
-      );
+      const field = document.getElementById("amount");
+      const amount = Number(field.value);
 
-      if (UPI_ID === "YOUR_VERIFIED_UPI_ID" ||
-          !UPI_ID.includes("@")) {
-        alert("Please configure your verified UPI ID first.");
-        return;
-      }
-
-      if (!Number.isFinite(amount) ||
-          amount < 1 || amount > 1000000) {
-        alert("Please enter a valid payment amount.");
+      if (!field.value.trim() ||
+          !Number.isFinite(amount) ||
+          amount < 1 ||
+          amount > 1000000) {
+        alert("Please enter a valid amount.");
+        field.focus();
         return;
       }
 
