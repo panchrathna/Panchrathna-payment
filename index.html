@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panchrathna Gems - UPI Payment</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px 16px;
+      font-family: Arial, sans-serif;
+      background: #f7f4ed;
+      color: #30251a;
+    }
+    .card {
+      max-width: 420px;
+      margin: 35px auto;
+      padding: 28px 22px;
+      background: white;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 5px 24px #00000012;
+    }
+    .logo { font-size: 42px; }
+    h1 { font-size: 25px; margin-bottom: 8px; }
+    .sub { color: #766b60; font-size: 14px; }
+    label {
+      display: block;
+      text-align: left;
+      margin: 26px 0 8px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 15px;
+      font-size: 22px;
+      border: 1px solid #d7c8ad;
+      border-radius: 10px;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 18px;
+      border: 0;
+      border-radius: 10px;
+      background: #806126;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .note {
+      margin-top: 20px;
+      color: #766b60;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="logo">💎</div>
+    <h1>Panchrathna Gems</h1>
+    <p class="sub">Secure UPI Payment</p>
+
+    <label for="amount">Enter Amount (₹)</label>
+    <input id="amount" type="number"
+           min="1" max="1000000" step="0.01"
+           placeholder="Enter amount">
+
+    <button onclick="payNow()">Pay Now</button>
+
+    <p class="note">
+      You will be redirected to a UPI app to complete
+      your payment. Please verify the recipient name
+      before paying.
+    </p>
+  </main>
+
+  <script>
+    // Replace this with your exact, verified ICICI UPI ID.
+    const UPI_ID = "YOUR_VERIFIED_UPI_ID";
+
+    function payNow() {
+      const amount = Number(
+        document.getElementById("amount").value
+      );
+
+      if (UPI_ID === "YOUR_VERIFIED_UPI_ID" ||
+          !UPI_ID.includes("@")) {
+        alert("Please configure your verified UPI ID first.");
+        return;
+      }
+
+      if (!Number.isFinite(amount) ||
+          amount < 1 || amount > 1000000) {
+        alert("Please enter a valid payment amount.");
+        return;
+      }
+
+      const params = new URLSearchParams({
+        pa: UPI_ID,
+        pn: "Panchrathna Gems",
+        cu: "INR",
+        am: amount.toFixed(2)
+      });
+
+      window.location.href = "upi://pay?" + params.toString();
+    }
+  </script>
+</body>
+</html>
