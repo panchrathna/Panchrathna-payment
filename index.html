@@ -222,38 +222,42 @@
 
   </main>
 
-  <script>
-    // Verified ICICI UPI ID
-    const UPI_ID ="panchrathnagems@icici";
 
-    document
-      .getElementById("payButton")
-      .addEventListener("click", function () {
-        const field = document.getElementById("amount");
-        const rawAmount = field.value.trim();
-        const amount = Number(rawAmount);
+<script>
+  const UPI_ID = "panchrathnagems@icici";
 
-        if (
-          rawAmount === "" ||
-          !Number.isFinite(amount) ||
-          amount < 1 ||
-          amount > 1000000
-        ) {
-          alert("Please enter a valid amount.");
-          field.focus();
-          return;
-        }
+  document.getElementById("payButton").addEventListener("click", function () {
+    const field = document.getElementById("amount");
+    const rawAmount = field.value.trim();
+    const amount = Number(rawAmount);
 
-        const params = new URLSearchParams({
-          pa: UPI_ID,
-          pn: "Panchrathna Gems",
-          cu: "INR",
-          am: amount.toFixed(2)
-        });
+    if (
+      rawAmount === "" ||
+      !Number.isFinite(amount) ||
+      amount < 1 ||
+      amount > 1000000
+    ) {
+      alert("Please enter a valid amount.");
+      field.focus();
+      return;
+    }
 
-        window.location.href = "upi://pay?" + params.toString();
-      });
-  </script>
+    const params = new URLSearchParams({
+      pa: UPI_ID,
+      pn: "Panchrathna Gems",
+      cu: "INR",
+      am: amount.toFixed(2),
+      tn: "Panchrathna Gems Payment"
+    });
+
+    const paymentUrl = "upi://pay?" + params.toString();
+
+    window.location.href = paymentUrl;
+  });
+</script>
+</body>
+</html>
+
 
 </body>
 </html>
